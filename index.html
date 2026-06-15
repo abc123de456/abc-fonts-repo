@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Slide Generator with Category</title>
+<title>Slide Generator</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -13,7 +13,7 @@
     margin-bottom: 20px;
   }
   #prev-text {
-    width: 80%;
+    width: 60%;
     padding: 8px;
     font-size: 16px;
   }
@@ -30,14 +30,14 @@
   .slide {
     padding: 10px;
     margin-bottom: 10px;
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
     border-radius: 4px;
   }
 </style>
 </head>
 <body>
 
-<h1>Slide Generator with Category</h1>
+<h1>Slide Generator</h1>
 
 <div id="controls">
   <input type="text" id="prev-text" placeholder="Type slide text and press Enter" />
@@ -61,29 +61,28 @@
   const container = document.getElementById('slidesContainer');
   const categorySelect = document.getElementById('categorySelect');
 
-  // Function to add a new slide
+  // Function to add new slide
   function addSlide() {
     const text = input.value.trim();
-    if (text === "") return;
+    if (text === "") return; // Ignore empty input
 
     const category = categorySelect.value;
 
     const slide = document.createElement('div');
     slide.className = 'slide';
 
-    // You can display category info if needed
+    // Display category and slide text
     slide.innerHTML = `<strong>Category:</strong> ${category}<br>${text}`;
 
     container.appendChild(slide);
   }
 
-  // Listen for Enter key press on the input
+  // Add slide on Enter key press
   input.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
       addSlide();
-      // Optional: clear input after adding slide
-      // input.value = '';
+      input.value = ""; // Optional: clear input
     }
   });
 </script>
