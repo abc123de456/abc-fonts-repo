@@ -1,598 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ABC Fonts</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="https://fonts.googleapis.com">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Slide Generator</title>
 <style>
-:root{--bg:#0a0a10;--surface:#13131c;--surface2:#1c1c2a;--surface3:#242436;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);--accent:#6c47ff;--accent2:#9d7fff;--text:#eeeef5;--text2:#8888aa;--text3:#4a4a66;--success:#34d399;--danger:#f87171;--gold:#f5c842;--warn:#fbbf24;--r:10px;--rsm:6px;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{background:#0a0a10;color:#eeeef5;font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.6;min-height:100vh;}
-nav{display:flex;align-items:center;justify-content:space-between;padding:0 22px;height:58px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:100;}
-.logo{font-size:20px;font-weight:800;letter-spacing:-1px;}
-.la{color:#6c47ff;}.lb{color:#9d7fff;}.lc{color:#c4b0ff;}
-.nav-tabs{display:flex;gap:3px;}
-.nav-tab{padding:6px 11px;border-radius:var(--rsm);background:transparent;border:none;color:#8888aa;font-size:13px;cursor:pointer;transition:all .15s;}
-.nav-tab:hover{background:var(--surface2);color:var(--text);}
-.nav-tab.active{background:var(--accent);color:#fff;}
-.user-pill{display:flex;align-items:center;gap:7px;padding:4px 12px 4px 4px;border-radius:999px;background:var(--surface2);border:1px solid var(--border2);cursor:pointer;font-size:13px;color:#8888aa;}
-.user-pill:hover{border-color:#9d7fff;}
-.av{width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;}
-.page{display:none;max-width:1140px;margin:0 auto;padding:28px 22px;}
-.page.active{display:block;}
-.btn{padding:8px 15px;border-radius:var(--rsm);border:1px solid var(--border2);background:transparent;color:var(--text);font-size:13px;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
-.btn:hover{background:var(--surface2);border-color:#9d7fff;}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
-.btn.primary:hover{background:#5a38e0;}
-.btn.sm{padding:5px 10px;font-size:12px;}
-.btn.danger{border-color:#f87171;color:#f87171;}
-.btn.danger:hover{background:rgba(248,113,113,.1);}
-.btn.success{border-color:#34d399;color:#34d399;}
-.btn.gbtn{background:#fff;border-color:#dadce0;color:#3c4043;font-weight:500;}
-.btn.gbtn:hover{background:#f8f9fa;}
-input,select,textarea{background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:var(--rsm);padding:8px 12px;font-size:14px;width:100%;outline:none;font-family:inherit;transition:border-color .15s;}
-input:focus,select:focus{border-color:#9d7fff;}
-input::placeholder{color:#4a4a66;}
-select option{background:var(--surface2);}
-.fg{margin-bottom:13px;}
-.fg label{display:block;font-size:11px;font-weight:600;color:#8888aa;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
-.frow{display:flex;gap:12px;}
-.frow .fg{flex:1;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;}
-.font-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;margin-top:16px;}
-.font-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;transition:border-color .15s;}
-.font-card:hover{border-color:var(--border2);}
-.font-card.saved-card{border-color:var(--accent);}
-.fc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.fc-name{font-size:13px;font-weight:600;color:#8888aa;}
-.tag{font-size:11px;padding:2px 8px;border-radius:999px;background:rgba(108,71,255,.15);color:#9d7fff;border:1px solid rgba(108,71,255,.3);}
-.atag{background:rgba(245,200,66,.1) !important;color:#f5c842 !important;border-color:rgba(245,200,66,.3) !important;}
-.style-tabs{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;}
-.style-tab{font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid var(--border2);background:transparent;color:#4a4a66;cursor:pointer;transition:all .12s;}
-.style-tab:hover{color:#8888aa;}
-.style-tab.active{background:var(--surface3);color:var(--text);border-color:#9d7fff;}
-.fc-preview{font-size:24px;line-height:1.35;color:var(--text);margin-bottom:8px;word-break:break-word;min-height:34px;display:block;}
-.fc-actions{display:flex;gap:5px;flex-wrap:wrap;}
-.civ-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(245,200,66,.1);color:#f5c842;border:1px solid rgba(245,200,66,.3);margin-bottom:5px;}
-.civ-desc{font-size:12px;color:#4a4a66;margin-bottom:8px;line-height:1.5;font-style:italic;}
-.font-status{font-size:11px;margin-top:4px;min-height:14px;color:#4a4a66;}
-.font-status.ok{color:#34d399;}
-.font-status.fail{color:#f87171;}
-.alert{border-radius:var(--rsm);padding:10px 14px;font-size:13px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start;}
-.alert.warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.3);color:#fde68a;}
-.alert.info{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.3);color:#6ee7b7;}
-.search-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-.search-bar input{flex:1;min-width:160px;}
-.search-bar select{width:200px;flex-shrink:0;}
-.prev-ctrls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px;}
-.prev-ctrls input[type=text]{flex:1;min-width:180px;}
-.rw{display:flex;align-items:center;gap:7px;font-size:13px;color:#8888aa;}
-.rw input[type=range]{width:80px;accent-color:var(--accent);}
-.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-.sec-title{font-size:18px;font-weight:700;}
-.drop-zone{border:2px dashed var(--border2);border-radius:var(--r);padding:32px;text-align:center;cursor:pointer;color:#8888aa;transition:all .15s;}
-.drop-zone:hover{border-color:#9d7fff;background:rgba(108,71,255,.04);}
-.sb-wrap{display:flex;gap:16px;min-height:500px;}
-.sb-sidebar{width:196px;flex-shrink:0;display:flex;flex-direction:column;gap:8px;}
-.slide-thumb{border:2px solid var(--border2);border-radius:var(--rsm);padding:9px 10px;cursor:pointer;transition:all .15s;background:var(--surface2);position:relative;}
-.slide-thumb:hover{border-color:#9d7fff;}
-.slide-thumb.active{border-color:var(--accent);}
-.th-num{font-size:10px;color:#4a4a66;font-weight:600;}
-.th-prev{font-size:9px;line-height:1.3;color:#8888aa;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.del-sl{position:absolute;top:4px;right:4px;background:transparent;border:none;color:#4a4a66;cursor:pointer;font-size:13px;padding:2px 4px;opacity:0;line-height:1;}
-.slide-thumb:hover .del-sl{opacity:1;}
-.sb-main{flex:1;display:flex;flex-direction:column;gap:12px;}
-.sc-wrap{flex:1;background:var(--surface2);border-radius:var(--r);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:300px;padding:28px;}
-.slide-canvas{width:100%;max-width:640px;aspect-ratio:16/9;background:#fff;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center;overflow:hidden;}
-.sc-main-text{line-height:1.2;word-break:break-word;transition:all .15s;}
-.sc-font-label{font-size:11px;color:#aaa;margin-top:10px;font-family:sans-serif;}
-.sb-ctrls{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;}
-.sb-ctrls .fg{margin:0;flex:1;min-width:110px;}
-.bg-swatches{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;}
-.bg-sw{width:22px;height:22px;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:all .12s;}
-.bg-sw.active{border-color:#9d7fff;}
-.auth-wrap{max-width:400px;margin:40px auto;}
-.auth-tog{font-size:13px;color:#8888aa;text-align:center;margin-top:13px;}
-.auth-tog a{color:#9d7fff;cursor:pointer;}
-.auth-tog a:hover{text-decoration:underline;}
-.prof-hdr{display:flex;align-items:center;gap:15px;margin-bottom:22px;}
-.prof-av{width:58px;height:58px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid var(--border2);}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
-.stat{background:var(--surface2);border-radius:var(--rsm);padding:12px 16px;}
-.stat .v{font-size:22px;font-weight:700;color:#9d7fff;}
-.stat .l{font-size:11px;color:#4a4a66;margin-top:2px;}
-.g-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border-radius:var(--rsm);border:1px solid var(--border2);background:var(--surface2);margin-bottom:12px;}
-.g-row .gi{display:flex;align-items:center;gap:11px;}
-.con-badge{font-size:11px;padding:2px 8px;border-radius:999px;background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3);}
-.admin-tbl{width:100%;border-collapse:collapse;}
-.admin-tbl th,.admin-tbl td{text-align:left;padding:9px 13px;font-size:13px;border-bottom:1px solid var(--border);}
-.admin-tbl th{color:#8888aa;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;}
-.admin-tbl tr:last-child td{border-bottom:none;}
-.admin-tbl tr:hover td{background:var(--surface2);}
-#toast{position:fixed;bottom:22px;right:22px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:11px 18px;font-size:13px;color:var(--text);z-index:9999;transform:translateY(80px);opacity:0;transition:all .22s;pointer-events:none;max-width:300px;}
-#toast.show{transform:translateY(0);opacity:1;}
-#toast.ok{border-color:#34d399;color:#34d399;}
-#toast.err{border-color:#f87171;color:#f87171;}
-.msg{font-size:13px;min-height:18px;margin-bottom:8px;}
-.msg.ok{color:#34d399;}.msg.err{color:#f87171;}
-.empty{text-align:center;color:#4a4a66;padding:44px 20px;font-size:14px;}
-::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
-@media(max-width:680px){.font-grid{grid-template-columns:1fr;}.sb-wrap{flex-direction:column;}.sb-sidebar{width:100%;flex-direction:row;overflow-x:auto;}.frow{flex-direction:column;}nav{padding:0 10px;}.page{padding:16px 12px;}.nav-tab{padding:5px 7px;font-size:12px;}}
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  #controls {
+    margin-bottom: 20px;
+  }
+  #prev-text {
+    width: 80%;
+    padding: 8px;
+    font-size: 16px;
+  }
+  #slidesContainer {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 200px;
+  }
+  .slide {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+  }
 </style>
 </head>
 <body>
-<nav>
-  <div class="logo"><span class="la">A</span><span class="lb">B</span><span class="lc">C</span> Fonts</div>
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="goPage('browse')">Browse</button>
-    <button class="nav-tab" onclick="goPage('upload')">Upload</button>
-    <button class="nav-tab" onclick="goPage('slides')">&#9654; Slides</button>
-    <button class="nav-tab" onclick="goPage('saved')">Saved <span id="nav-sc" style="opacity:.6;font-size:11px"></span></button>
-    <button class="nav-tab" onclick="goPage('account')">Account</button>
-  </div>
-  <div id="nav-user" onclick="goPage('account')" class="user-pill" style="display:none">
-    <div class="av" id="nav-av">?</div><span id="nav-uname">User</span>
-  </div>
-</nav>
 
-<div id="page-browse" class="page active">
-  <div class="sec-hdr"><h2 class="sec-title">Browse fonts</h2><span style="font-size:13px;color:#4a4a66" id="browse-status"></span></div>
-  <div id="net-alert" class="alert warn" style="display:none"><span>&#9888;</span><div><strong>Google Fonts may be blocked on this network.</strong> Fonts show a fallback preview instantly and update when they load. Use the <strong>Upload tab</strong> to load fonts from your computer - always works offline.</div></div>
-  <div class="search-bar">
-    <input type="text" id="fsearch" placeholder="Search fonts..." oninput="filterFonts()">
-    <select id="fcat" onchange="filterFonts()">
-      <option value="ancient">&#127963; Ancient Civilisations</option>
-      <option value="">All categories</option>
-      <option value="sans-serif">Sans-serif</option>
-      <option value="serif">Serif</option>
-      <option value="display">Display</option>
-      <option value="handwriting">Handwriting</option>
-      <option value="monospace">Monospace</option>
-    </select>
-  </div>
-  <div class="prev-ctrls">
-    <input type="text" id="prev-text" value="The quick brown fox jumps over the lazy dog" oninput="updatePreviews()">
-    <div class="rw"><span>Size:</span><input type="range" min="14" max="64" step="1" value="24" id="fsz" oninput="document.getElementById('sz-lbl').textContent=this.value;updatePreviews()"><span id="sz-lbl" style="min-width:24px">24</span>px</div>
-  </div>
-  <div class="font-grid" id="font-grid"></div>
+<h1>Slide Generator</h1>
+
+<div id="controls">
+  <input type="text" id="prev-text" value="The quick brown fox jumps over the lazy dog" placeholder="Type text and press Enter to add slide" />
 </div>
 
-<div id="page-upload" class="page">
-  <div class="sec-hdr"><h2 class="sec-title">Upload your font</h2></div>
-  <div class="alert info"><span>&#10003;</span><div><strong>Uploaded fonts always work offline!</strong> They load directly from your computer - perfect for school networks where Google Fonts may be blocked.</div></div>
-  <label class="drop-zone" for="font-file-input">
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto 10px;opacity:.35"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-    <p style="font-size:14px">Click or drag a font file here</p>
-    <small style="font-size:12px;color:#4a4a66">.ttf .otf .woff .woff2 supported</small>
-    <input type="file" id="font-file-input" accept=".ttf,.otf,.woff,.woff2" style="display:none" onchange="handleUpload(event)">
-  </label>
-  <div id="upload-result" style="display:none;margin-top:18px">
-    <div class="font-card">
-      <div class="fc-top"><span class="fc-name" id="upl-fname">-</span><span class="tag" id="upl-tag">uploaded</span></div>
-      <div class="style-tabs">
-        <button class="style-tab active" onclick="setUplStyle('400','normal',this)">Regular</button>
-        <button class="style-tab" onclick="setUplStyle('400','italic',this)">Italic</button>
-        <button class="style-tab" onclick="setUplStyle('700','normal',this)">Bold</button>
-        <button class="style-tab" onclick="setUplStyle('700','italic',this)">Bold Italic</button>
-      </div>
-      <div class="fc-preview" id="upl-preview" style="font-family:'UserFont',Georgia,serif">The quick brown fox jumps over the lazy dog</div>
-      <input type="text" placeholder="Preview text..." oninput="document.getElementById('upl-preview').textContent=this.value||'The quick brown fox jumps over the lazy dog'" style="margin-bottom:12px">
-      <div class="fc-actions">
-        <button class="btn sm" onclick="downloadUpload()">&#8595; Download</button>
-        <button class="btn sm" onclick="saveUploadedFont()">&#9825; Save</button>
-        <button class="btn sm" onclick="exportFont('_upload','doc')">Doc</button>
-        <button class="btn sm" onclick="exportFont('_upload','pdf')">PDF</button>
-        <button class="btn sm" onclick="exportFont('_upload','slide')">&#9654; Slide</button>
-        <button class="btn sm primary" onclick="addToSlides('_upload')">+ Add to slides</button>
-      </div>
-    </div>
-  </div>
+<div id="slidesContainer">
+  <!-- Slides will be added here -->
 </div>
-
-<div id="page-slides" class="page">
-  <div class="sec-hdr">
-    <h2 class="sec-title">&#9654; Slide builder</h2>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn sm" onclick="exportSlides('pdf')">Export PDF</button>
-      <button class="btn sm" onclick="exportSlides('html')">Export slides (.html)</button>
-      <button class="btn sm primary" onclick="addSlide()">+ New slide</button>
-    </div>
-  </div>
-  <div class="sb-wrap">
-    <div class="sb-sidebar" id="sb-sidebar"></div>
-    <div class="sb-main">
-      <div class="sc-wrap">
-        <div class="slide-canvas" id="slide-canvas">
-          <div class="sc-main-text" id="sc-text">Your text here</div>
-          <div class="sc-font-label" id="sc-label"></div>
-        </div>
-      </div>
-      <div class="sb-ctrls">
-        <div class="fg" style="flex:2;min-width:150px"><label>Slide text</label><input type="text" id="sc-input" placeholder="Type text for this slide..." oninput="updateCurrentSlide()"></div>
-        <div class="fg"><label>Font</label><select id="sc-font" onchange="updateCurrentSlide()"><option value="">Default</option></select></div>
-        <div class="fg"><label>Style</label><select id="sc-style" onchange="updateCurrentSlide()"><option value="normal">Regular</option><option value="italic">Italic</option><option value="bold">Bold</option><option value="bold italic">Bold Italic</option></select></div>
-        <div class="fg"><label>Size <span id="sc-sz-lbl" style="color:#4a4a66">40</span>px</label><input type="range" min="14" max="100" step="1" value="40" id="sc-size" oninput="document.getElementById('sc-sz-lbl').textContent=this.value;updateCurrentSlide()"></div>
-        <div class="fg"><label>Text colour</label><input type="color" id="sc-color" value="#111111" oninput="updateCurrentSlide()" style="height:36px;padding:2px 4px;cursor:pointer;width:52px"></div>
-        <div class="fg"><label>Background</label><div class="bg-swatches" id="bg-swatches"></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="page-saved" class="page">
-  <div class="sec-hdr"><h2 class="sec-title">Saved fonts</h2></div>
-  <div id="saved-list"></div>
-</div>
-
-<div id="page-account" class="page">
-  <div id="auth-section" class="auth-wrap">
-    <div class="card">
-      <h2 style="font-size:18px;font-weight:700;margin-bottom:5px" id="auth-title">Sign in</h2>
-      <p style="font-size:13px;color:#8888aa;margin-bottom:16px">Welcome to ABC Fonts</p>
-      <button class="btn gbtn" onclick="googleSignIn()" style="width:100%;justify-content:center;margin-bottom:13px">
-        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-        Continue with Google
-      </button>
-      <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px"><hr style="flex:1;border:none;border-top:1px solid var(--border2)"><span style="font-size:12px;color:#4a4a66">or</span><hr style="flex:1;border:none;border-top:1px solid var(--border2)"></div>
-      <div class="fg"><label>Username</label><input type="text" id="auth-user" placeholder="Username"></div>
-      <div class="fg" id="auth-email-grp" style="display:none"><label>Email</label><input type="email" id="auth-email" placeholder="your@email.com"></div>
-      <div class="fg"><label>Password</label><input type="password" id="auth-pass" placeholder="Password" onkeydown="if(event.key==='Enter')submitAuth()"></div>
-      <div class="msg" id="auth-msg"></div>
-      <button class="btn primary" onclick="submitAuth()" style="width:100%;justify-content:center" id="auth-btn">Sign in</button>
-    </div>
-    <div class="auth-tog" id="auth-tog">Don't have an account? <a onclick="toggleAuthMode()">Create one</a></div>
-  </div>
-  <div id="profile-section" style="display:none">
-    <div class="prof-hdr">
-      <div class="prof-av" id="prof-av">?</div>
-      <div>
-        <div style="font-size:20px;font-weight:700" id="prof-name">-</div>
-        <div style="font-size:13px;color:#8888aa" id="prof-email">-</div>
-        <div id="prof-g-badge" style="display:none;margin-top:4px"><span class="con-badge">&#10003; Google connected</span></div>
-      </div>
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="v" id="stat-saved">0</div><div class="l">Saved fonts</div></div>
-      <div class="stat"><div class="v" id="stat-exports">0</div><div class="l">Exports</div></div>
-      <div class="stat"><div class="v" id="stat-slides">0</div><div class="l">Slides made</div></div>
-    </div>
-    <div class="card" style="margin-bottom:13px">
-      <h3 style="font-size:14px;font-weight:600;margin-bottom:13px">Connected accounts</h3>
-      <div class="g-row">
-        <div class="gi">
-          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-          <div><div style="font-size:13px;font-weight:500">Google / Google Drive</div><div style="font-size:12px;color:#4a4a66" id="g-sub">Not connected</div></div>
-        </div>
-        <button class="btn sm" id="g-btn" onclick="toggleGoogleConnect()">Connect</button>
-      </div>
-      <div id="drive-actions" style="display:none;margin-top:10px">
-        <p style="font-size:13px;color:#8888aa;margin-bottom:8px">Download a file then drag it into Google Drive:</p>
-        <button class="btn sm" onclick="window.open('https://drive.google.com/drive/my-drive','_blank')">&#128193; Open Google Drive</button>
-      </div>
-    </div>
-    <div class="card" style="margin-bottom:13px">
-      <h3 style="font-size:14px;font-weight:600;margin-bottom:13px">Quick export</h3>
-      <div class="frow">
-        <div class="fg"><label>Font</label><select id="exp-font-sel"></select></div>
-        <div class="fg"><label>Style</label><select id="exp-style-sel"><option value="normal">Regular</option><option value="italic">Italic</option><option value="bold">Bold</option><option value="bold italic">Bold Italic</option></select></div>
-        <div class="fg"><label>Sample text</label><input type="text" id="exp-sample" value="The quick brown fox jumps over the lazy dog"></div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn sm" onclick="doProfileExport('doc')">Doc</button>
-        <button class="btn sm" onclick="doProfileExport('pdf')">PDF</button>
-        <button class="btn sm" onclick="doProfileExport('slide')">&#9654; Slide</button>
-      </div>
-    </div>
-    <button class="btn danger" onclick="signOut()">Sign out</button>
-  </div>
-</div>
-
-<div id="page-admin" class="page">
-  <div class="sec-hdr"><h2 class="sec-title">&#9881; Admin</h2><button class="btn sm danger" onclick="adminLogout()">Exit</button></div>
-  <div id="admin-auth-wrap">
-    <div class="card" style="max-width:360px">
-      <h3 style="font-size:14px;font-weight:600;margin-bottom:13px">Admin login</h3>
-      <div class="fg"><label>Password</label><input type="password" id="admin-pw" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')adminLogin()"></div>
-      <div class="msg" id="admin-msg"></div>
-      <button class="btn primary" onclick="adminLogin()">Login</button>
-    </div>
-  </div>
-  <div id="admin-panel" style="display:none">
-    <!-- GITHUB LOADER -->
-    <div class="card" style="margin-bottom:15px;border-color:rgba(108,71,255,.4)">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#9d7fff"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
-        <h3 style="font-size:14px;font-weight:600">Load fonts from GitHub</h3>
-      </div>
-      <p style="font-size:12px;color:#8888aa;margin-bottom:12px">Paste your GitHub Pages URL to load all fonts from your repo's <code style="background:#242436;padding:1px 5px;border-radius:3px">fonts.json</code> file automatically.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
-        <div class="fg" style="flex:1;margin:0;min-width:220px">
-          <label>GitHub Pages URL</label>
-          <input type="text" id="gh-url" placeholder="https://yourusername.github.io/abc-fonts-repo" oninput="saveGhUrl()">
-        </div>
-        <button class="btn primary" onclick="loadFromGitHub()" style="flex-shrink:0">Load fonts</button>
-        <button class="btn sm" onclick="reloadFromGitHub()" style="flex-shrink:0" title="Force reload ignoring cache">&#8635; Reload</button>
-      </div>
-      <div id="gh-status" style="font-size:12px;margin-top:8px;min-height:16px;color:#8888aa"></div>
-      <div id="gh-preview-list" style="margin-top:10px"></div>
-    </div>
-
-    <div class="card" style="margin-bottom:15px">
-      <h3 style="font-size:14px;font-weight:600;margin-bottom:13px">Add font manually</h3>
-      <div class="frow">
-        <div class="fg"><label>Font family (exact Google Fonts name)</label><input type="text" id="adm-fname" placeholder="e.g. Cinzel"></div>
-        <div class="fg"><label>Category</label><select id="adm-fcat"><option value="ancient">Ancient Civilisations</option><option value="sans-serif">Sans-serif</option><option value="serif">Serif</option><option value="display">Display</option><option value="handwriting">Handwriting</option><option value="monospace">Monospace</option></select></div>
-      </div>
-      <div class="frow">
-        <div class="fg"><label>Civilisation label</label><input type="text" id="adm-fciv" placeholder="e.g. Ancient Rome"></div>
-        <div class="fg"><label>Civilisation description</label><input type="text" id="adm-fcivdesc" placeholder="Brief history..."></div>
-      </div>
-      <div class="fg"><label>Tags (comma-separated)</label><input type="text" id="adm-ftags" placeholder="Roman, inscription"></div>
-      <div class="msg" id="adm-font-msg"></div>
-      <button class="btn primary" onclick="adminAddFont()">Add font</button>
-    </div>
-    <div class="card" style="margin-bottom:15px">
-      <div class="sec-hdr" style="margin-bottom:11px">
-        <h3 style="font-size:14px;font-weight:600">Fonts (<span id="adm-count">0</span>)</h3>
-        <div style="display:flex;gap:6px">
-          <button class="btn sm" onclick="adminExportJSON()">Export JSON</button>
-          <button class="btn sm" onclick="document.getElementById('adm-import').click()">Import JSON</button>
-          <input type="file" id="adm-import" accept=".json" style="display:none" onchange="handleAdminImport(event)">
-        </div>
-      </div>
-      <table class="admin-tbl"><thead><tr><th>Family</th><th>Category</th><th>Civilisation</th><th>Actions</th></tr></thead><tbody id="adm-tbody"></tbody></table>
-    </div>
-    <div class="card">
-      <h3 style="font-size:14px;font-weight:600;margin-bottom:13px">Settings</h3>
-      <div class="fg"><label>Change admin password</label><input type="password" id="adm-newpw" placeholder="New password"></div>
-      <button class="btn primary" onclick="adminSaveSettings()">Save</button>
-    </div>
-  </div>
-</div>
-<div id="toast"></div>
 
 <script>
-var FALLBACKS={'ancient':'Georgia,"Palatino Linotype",serif','sans-serif':'Arial,Helvetica,sans-serif','serif':'Georgia,"Times New Roman",serif','display':'"Arial Black",Impact,sans-serif','handwriting':'"Comic Sans MS",cursive','monospace':'"Courier New",Courier,monospace'};
-var STYLE_VARIANTS=[{label:'Regular',weight:'400',style:'normal'},{label:'Italic',weight:'400',style:'italic'},{label:'Bold',weight:'700',style:'normal'},{label:'Bold Italic',weight:'700',style:'italic'}];
-var BG_COLORS=['#ffffff','#f5f5f0','#111111','#1a1a2e','#fef9ef','#eaf4ff','#fff0f6','#f0fff4','#2d2016'];
-var DEFAULT_FONTS=[
-  {f:'Cinzel',c:'ancient',tags:['Roman'],civ:'Ancient Rome',civDesc:"Roman stone-carved capitals - same letterforms as Trajan's Column (113 AD)."},
-  {f:'Cinzel Decorative',c:'ancient',tags:['Roman'],civ:'Ancient Rome',civDesc:'Ornate version of Cinzel, echoing decorated capitals on Roman imperial monuments.'},
-  {f:'Marcellus',c:'ancient',tags:['Roman'],civ:'Ancient Rome',civDesc:'Flared serifs modelled on classical Roman monumental stone inscriptions.'},
-  {f:'Marcellus SC',c:'ancient',tags:['Roman'],civ:'Ancient Rome',civDesc:'Small-caps Roman inscription style - perfect for ancient Latin titles.'},
-  {f:'Caesar Dressing',c:'ancient',tags:['Roman'],civ:'Ancient Rome',civDesc:'Bold decorative font echoing grand Roman emperor title inscriptions.'},
-  {f:'Metamorphous',c:'ancient',tags:['Graeco-Roman'],civ:'Greece and Rome',civDesc:'Stone-carved inscriptions from the classical Graeco-Roman world (800 BC to 400 AD).'},
-  {f:'GFS Neohellenic',c:'ancient',tags:['Greek'],civ:'Ancient Greece',civDesc:'Based on ancient Greek letterforms - designed for classical Greek texts and philosophy.'},
-  {f:'Philosopher',c:'ancient',tags:['Greek'],civ:'Ancient Greece',civDesc:"Named after the great Greek thinkers - captures the elegance of Socrates' era writing."},
-  {f:'Almendra',c:'ancient',tags:['manuscript'],civ:'Ancient Manuscripts',civDesc:'Ornate letterforms recalling ancient manuscript scripts and early scribal traditions.'},
-  {f:'Almendra Display',c:'ancient',tags:['manuscript'],civ:'Ancient Manuscripts',civDesc:'Angular letters evoking the distinctive carved characters of ancient stone and clay tablets.'},
-  {f:'Uncial Antiqua',c:'ancient',tags:['Celtic'],civ:'Early Manuscripts 400-800 AD',civDesc:'Based on Uncial letterforms from 4th to 8th century manuscripts including the Book of Kells.'},
-  {f:'MedievalSharp',c:'ancient',tags:['medieval'],civ:'Medieval Europe',civDesc:'Sharp serifs inspired by stone inscriptions carrying ancient lettering traditions into medieval civilisations.'},
-  {f:'Germania One',c:'ancient',tags:['Germanic'],civ:'Viking and Germanic Tribes',civDesc:'Inspired by ancient Germanic letterforms and the runic traditions of early Northern European peoples.'},
-  {f:'Eagle Lake',c:'ancient',tags:['classical'],civ:'Classical Antiquity',civDesc:'Refined decorative cursive inspired by ancient Graeco-Roman calligraphy.'},
-  {f:'Amiri',c:'ancient',tags:['Arabic'],civ:'Islamic Golden Age 750-1300 AD',civDesc:'Based on classical Naskh script used in Arabic manuscripts and Islamic scholarship from 750 AD.'},
-  {f:'IM Fell English',c:'ancient',tags:['17th century'],civ:'Early Print Era 1600s',civDesc:'Based on 17th-century Fell typefaces - some of the oldest surviving typefaces, bridging manuscripts and printing.'},
-  {f:'UnifrakturMaguntia',c:'ancient',tags:['Gothic'],civ:'Medieval Europe 12th-15th Century',civDesc:'Gothic Blackletter - script of illuminated manuscripts and the Gutenberg Bible.'},
-  {f:'Cardo',c:'ancient',tags:['Coptic','Latin'],civ:'Classical Scholarship',civDesc:'Designed for ancient-text scholars - supports polytonic Greek, Latin, and Coptic scripts from antiquity.'},
-  {f:'Spectral',c:'ancient',tags:['literary'],civ:'Classical Literature',civDesc:'An elegant literary serif capturing the spirit of classical text-printing and ancient literary traditions.'},
-  {f:'Roboto',c:'sans-serif',tags:['clean','popular']},{f:'Open Sans',c:'sans-serif',tags:['readable','popular']},
-  {f:'Lato',c:'sans-serif',tags:['humanist']},{f:'Montserrat',c:'sans-serif',tags:['geometric','popular']},
-  {f:'Poppins',c:'sans-serif',tags:['geometric','modern']},{f:'Inter',c:'sans-serif',tags:['ui','modern']},
-  {f:'Nunito',c:'sans-serif',tags:['rounded','friendly']},{f:'Raleway',c:'sans-serif',tags:['elegant']},
-  {f:'Oswald',c:'sans-serif',tags:['condensed','bold']},{f:'Space Grotesk',c:'sans-serif',tags:['modern','tech']},
-  {f:'Merriweather',c:'serif',tags:['editorial']},{f:'Playfair Display',c:'serif',tags:['elegant','fashion']},
-  {f:'Lora',c:'serif',tags:['literary']},{f:'Libre Baskerville',c:'serif',tags:['classic']},
-  {f:'EB Garamond',c:'serif',tags:['classic','book']},
-  {f:'Lobster',c:'display',tags:['retro','bold']},{f:'Bebas Neue',c:'display',tags:['condensed','bold']},
-  {f:'Abril Fatface',c:'display',tags:['editorial']},{f:'Righteous',c:'display',tags:['modern']},
-  {f:'Fredoka One',c:'display',tags:['rounded','fun']},
-  {f:'Pacifico',c:'handwriting',tags:['retro','fun']},{f:'Dancing Script',c:'handwriting',tags:['cursive']},
-  {f:'Caveat',c:'handwriting',tags:['casual']},
-  {f:'Fira Code',c:'monospace',tags:['coding']},{f:'JetBrains Mono',c:'monospace',tags:['coding','modern']}
-];
-var fontList=[],filteredFonts=[],loadedFamilies={},loadStatus={};
-var savedFonts=[],currentUser=null,accounts={},exportCount=0,slidesMadeCount=0;
-var uploadedUrl=null,uploadedName=null,authMode='login',adminAuthed=false,adminPass='admin123';
-var googleConnected=false,googleEmail='';
-var cardStyles={};
-var slides=[{text:'The quick brown fox',font:'',style:'normal',size:40,color:'#111111',bg:'#ffffff'}];
-var curSlide=0;
+  const input = document.getElementById('prev-text');
+  const container = document.getElementById('slidesContainer');
 
-function saveData(){try{localStorage.setItem('abc_fonts',JSON.stringify(fontList));localStorage.setItem('abc_accounts',JSON.stringify(accounts));localStorage.setItem('abc_adminpass',adminPass);if(currentUser){accounts[currentUser].savedFonts=savedFonts;accounts[currentUser].exportCount=exportCount;accounts[currentUser].slidesMade=slidesMadeCount;accounts[currentUser].googleConnected=googleConnected;accounts[currentUser].googleEmail=googleEmail;localStorage.setItem('abc_accounts',JSON.stringify(accounts));localStorage.setItem('abc_session',currentUser);}}catch(e){}}
-function loadData(){try{var f=localStorage.getItem('abc_fonts');fontList=f?JSON.parse(f):DEFAULT_FONTS.slice();var a=localStorage.getItem('abc_accounts');accounts=a?JSON.parse(a):{};adminPass=localStorage.getItem('abc_adminpass')||'admin123';var sess=localStorage.getItem('abc_session');if(sess&&accounts[sess])autoLogin(sess);}catch(e){fontList=DEFAULT_FONTS.slice();}}
-function goPage(p){document.querySelectorAll('.page').forEach(function(el){el.classList.remove('active');});document.querySelectorAll('.nav-tab').forEach(function(el,i){el.classList.toggle('active',['browse','upload','slides','saved','account'][i]===p);});document.getElementById('page-'+p).classList.add('active');if(p==='saved')renderSaved();if(p==='slides'){populateSlideFontSelect();renderSlideSidebar();renderCurrentSlide();}if(p==='account')populateExportSelect();}
-function checkHash(){if(location.hash==='#admin'){document.querySelectorAll('.page').forEach(function(el){el.classList.remove('active');});document.querySelectorAll('.nav-tab').forEach(function(el){el.classList.remove('active');});document.getElementById('page-admin').classList.add('active');if(adminAuthed)showAdminPanel();}}
-function getFontStack(f,c){return"'"+f+"',"+(FALLBACKS[c]||'serif');}
-function loadGFont(f,c){
-  if(!f||f==='UserFont'||loadedFamilies[f])return;
-  loadedFamilies[f]=true;loadStatus[f]='loading';
-  var safe=encodeURIComponent(f).replace(/%20/g,'+');
-  // Method 1: try <style> @import (works on some networks that block <link>)
-  var s=document.createElement('style');
-  s.textContent='@import url("https://fonts.googleapis.com/css2?family='+safe+':ital,wght@0,400;0,700;1,400;1,700&display=swap");';
-  document.head.appendChild(s);
-  // Method 2: also try <link> as backup
-  var l=document.createElement('link');
-  l.rel='stylesheet';
-  l.href='https://fonts.googleapis.com/css2?family='+safe+':ital,wght@0,400;0,700;1,400;1,700&display=swap';
-  l.onload=function(){
-    loadStatus[f]='ok';
-    document.querySelectorAll('[data-gfont="'+f+'"]').forEach(function(el){
-      el.style.fontFamily=getFontStack(f,c);
-    });
-    updateBadge(f,'ok');
-  };
-  l.onerror=function(){loadStatus[f]='fail';updateBadge(f,'fail');};
-  setTimeout(function(){if(loadStatus[f]==='loading'){loadStatus[f]='fail';updateBadge(f,'fail');}},6000);
-  document.head.appendChild(l);
-}
-function updateBadge(f,s){var id='fst-'+f.replace(/[^a-z0-9]/gi,'_');var el=document.getElementById(id);if(!el)return;if(s==='ok'){el.textContent='Font loaded';el.className='font-status ok';}else if(s==='fail'){el.textContent='Using fallback preview (Google Fonts blocked on this network)';el.className='font-status fail';}else{el.textContent='Loading...';el.className='font-status';}}
-function filterFonts(){var q=document.getElementById('fsearch').value.toLowerCase();var cat=document.getElementById('fcat').value;filteredFonts=fontList.filter(function(fn){return(!q||fn.f.toLowerCase().includes(q)||(fn.tags||[]).some(function(t){return t.toLowerCase().includes(q);})||(fn.civ||'').toLowerCase().includes(q))&&(!cat||fn.c===cat);});renderGrid();}
-function renderGrid(){var grid=document.getElementById('font-grid');var prev=document.getElementById('prev-text').value.trim()||'The quick brown fox jumps over the lazy dog';var sz=parseInt(document.getElementById('fsz').value)||24;document.getElementById('browse-status').textContent=filteredFonts.length+' fonts';grid.innerHTML='';filteredFonts.forEach(function(font){var f=font.f,c=font.c,tags=font.tags,civ=font.civ,civDesc=font.civDesc;loadGFont(f,c);var isSaved=savedFonts.includes(f);var styleIdx=cardStyles[f]||0;var sv=STYLE_VARIANTS[styleIdx];var fstack=getFontStack(f,c);var fid='fp-'+f.replace(/[^a-z0-9]/gi,'_');var stid='fst-'+f.replace(/[^a-z0-9]/gi,'_');var isAnc=c==='ancient';var sf=f.replace(/\\/g,'\\\\').replace(/'/g,"\\'");var styleBtns=STYLE_VARIANTS.map(function(v,i){return'<button class="style-tab'+(i===styleIdx?' active':'')+'" onclick="setCardStyle(\''+sf+"','"+c+"',"+i+')">'+v.label+'</button>';}).join('');var tagsHtml=tags&&tags.length&&!isAnc?'<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">'+tags.map(function(t){return'<span style="font-size:11px;color:#4a4a66">#'+t+'</span>';}).join('')+'</div>':'';var civHtml=civ?'<div class="civ-badge">'+civ+'</div><div class="civ-desc">'+(civDesc||'')+'</div>':'';var d=document.createElement('div');d.className='font-card'+(isSaved?' saved-card':'');d.innerHTML='<div class="fc-top"><span class="fc-name">'+f+'</span><span class="tag'+(isAnc?' atag':'')+'">'+( isAnc?'Ancient':c)+'</span></div><div class="style-tabs">'+styleBtns+'</div>'+civHtml+'<div class="fc-preview" id="'+fid+'" data-gfont="'+f+'" style="font-family:'+fstack+';font-size:'+sz+'px;font-style:'+sv.style+';font-weight:'+sv.weight+';color:#eeeef5">'+prev+'</div>'+tagsHtml+'<div id="'+stid+'" class="font-status">Loading font...</div><div class="fc-actions" style="margin-top:8px"><button class="btn sm" onclick="downloadGFont(\''+sf+'\')">&#8595; DL</button><button class="btn sm '+(isSaved?'success':'')+'" onclick="toggleSave(\''+sf+'\',this)">'+(isSaved?'&#9829; Saved':'&#9825; Save')+'</button><button class="btn sm" onclick="exportFont(\''+sf+'\',\'doc\')">Doc</button><button class="btn sm" onclick="exportFont(\''+sf+'\',\'pdf\')">PDF</button><button class="btn sm" onclick="exportFont(\''+sf+'\',\'slide\')">&#9654;</button><button class="btn sm primary" onclick="addToSlides(\''+sf+'\')">+ Slide</button></div>';grid.appendChild(d);if(loadStatus[f]==='ok')updateBadge(f,'ok');else if(loadStatus[f]==='fail')updateBadge(f,'fail');});}
-function setCardStyle(f,c,idx){cardStyles[f]=idx;var sv=STYLE_VARIANTS[idx];var el=document.getElementById('fp-'+f.replace(/[^a-z0-9]/gi,'_'));if(!el)return;el.style.fontStyle=sv.style;el.style.fontWeight=sv.weight;el.closest('.font-card').querySelectorAll('.style-tab').forEach(function(b,i){b.classList.toggle('active',i===idx);});}
-function updatePreviews(){var t=document.getElementById('prev-text').value.trim()||'The quick brown fox jumps over the lazy dog';var sz=parseInt(document.getElementById('fsz').value)||24;document.querySelectorAll('.fc-preview').forEach(function(el){el.textContent=t;el.style.fontSize=sz+'px';});}
-async function downloadGFont(f){toast('Downloading '+f+'...');try{var safe=f.replace(/ /g,'+');var css=await fetch('https://fonts.googleapis.com/css2?family='+safe+'&display=swap').then(function(r){return r.text();});var m=css.match(/url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)/);if(!m)throw new Error();var blob=await fetch(m[1]).then(function(r){return r.blob();});var ext=m[1].split('.').pop().split('?')[0]||'woff2';triggerDL(URL.createObjectURL(blob),f.replace(/ /g,'-')+'.'+ext);toast(f+' downloaded!','ok');}catch(e){window.open('https://fonts.google.com/specimen/'+f.replace(/ /g,'+'),'_blank');toast('Opened Google Fonts page for '+f);}}
-function toggleSave(f,btn){var i=savedFonts.indexOf(f);var card=btn.closest('.font-card');if(i>-1){savedFonts.splice(i,1);btn.innerHTML='&#9825; Save';btn.classList.remove('success');card.classList.remove('saved-card');toast('Removed');}else{savedFonts.push(f);btn.innerHTML='&#9829; Saved';btn.classList.add('success');card.classList.add('saved-card');toast('Saved '+f,'ok');}document.getElementById('nav-sc').textContent=savedFonts.length?'('+savedFonts.length+')':'';document.getElementById('stat-saved').textContent=savedFonts.length;saveData();}
-function renderSaved(){var el=document.getElementById('saved-list');if(!savedFonts.length){el.innerHTML='<div class="empty">&#9825; No saved fonts yet.</div>';return;}var prev=document.getElementById('prev-text').value.trim()||'The quick brown fox jumps over the lazy dog';el.innerHTML='';savedFonts.forEach(function(f){var font=fontList.find(function(x){return x.f===f;})||{f:f,c:'serif'};loadGFont(f,font.c);var idx=cardStyles[f]||0;var sv=STYLE_VARIANTS[idx];var fstack=getFontStack(f,font.c);var d=document.createElement('div');d.className='font-card';d.style.marginBottom='10px';var sf=f.replace(/'/g,"\\'");var styleBtns=STYLE_VARIANTS.map(function(v,i){return'<button class="style-tab'+(i===idx?' active':'')+'" onclick="setSavedStyle(\''+sf+"',"+i+',this)">'+v.label+'</button>';}).join('');var civHtml=font.civ?'<div class="civ-badge">'+font.civ+'</div><div class="civ-desc">'+(font.civDesc||'')+'</div>':'';d.innerHTML='<div class="fc-top"><span class="fc-name">'+f+'</span></div><div class="style-tabs">'+styleBtns+'</div>'+civHtml+'<div class="fc-preview" data-gfont="'+f+'" style="font-family:'+fstack+';font-size:22px;font-style:'+sv.style+';font-weight:'+sv.weight+'">'+prev+'</div><div class="fc-actions" style="margin-top:8px"><button class="btn sm" onclick="downloadGFont(\''+sf+'\')">&#8595; DL</button><button class="btn sm" onclick="exportFont(\''+sf+'\',\'doc\')">Doc</button><button class="btn sm" onclick="exportFont(\''+sf+'\',\'pdf\')">PDF</button><button class="btn sm" onclick="exportFont(\''+sf+'\',\'slide\')">&#9654;</button><button class="btn sm primary" onclick="addToSlides(\''+sf+'\')">+ Slide</button><button class="btn sm danger" onclick="removeSaved(\''+sf+'\')">&#10005;</button></div>';el.appendChild(d);});}
-function setSavedStyle(f,idx,btn){cardStyles[f]=idx;var sv=STYLE_VARIANTS[idx];btn.closest('.font-card').querySelectorAll('[data-gfont]').forEach(function(el){el.style.fontStyle=sv.style;el.style.fontWeight=sv.weight;});btn.closest('.style-tabs').querySelectorAll('.style-tab').forEach(function(b,i){b.classList.toggle('active',i===idx);});}
-function removeSaved(f){savedFonts=savedFonts.filter(function(x){return x!==f;});document.getElementById('nav-sc').textContent=savedFonts.length?'('+savedFonts.length+')':'';document.getElementById('stat-saved').textContent=savedFonts.length;renderSaved();saveData();}
-function handleUpload(e){var file=e.target.files[0];if(!file)return;uploadedName=file.name;uploadedUrl=URL.createObjectURL(file);var s=document.createElement('style');s.textContent="@font-face{font-family:'UserFont';src:url('"+uploadedUrl+"');}";document.head.appendChild(s);document.getElementById('upl-fname').textContent=file.name;document.getElementById('upl-tag').textContent=file.name.split('.').pop().toUpperCase();document.getElementById('upl-preview').style.fontFamily="'UserFont',Georgia,serif";document.getElementById('upload-result').style.display='block';toast('Font loaded: '+file.name+' (works offline)','ok');}
-function setUplStyle(w,s,btn){var el=document.getElementById('upl-preview');el.style.fontWeight=w;el.style.fontStyle=s;btn.closest('.style-tabs').querySelectorAll('.style-tab').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');}
-function downloadUpload(){if(uploadedUrl)triggerDL(uploadedUrl,uploadedName);}
-function saveUploadedFont(){if(!uploadedName||savedFonts.includes(uploadedName))return;savedFonts.push(uploadedName);document.getElementById('nav-sc').textContent='('+savedFonts.length+')';toast('Saved!','ok');saveData();}
-function populateSlideFontSelect(){var sel=document.getElementById('sc-font');var cur=sel.value;sel.innerHTML='<option value="">Default (system)</option>';fontList.forEach(function(f){var o=document.createElement('option');o.value=f.f;o.textContent=f.f;sel.appendChild(o);});if(cur)sel.value=cur;renderBgSwatches();}
-function renderBgSwatches(){var wrap=document.getElementById('bg-swatches');wrap.innerHTML='';var curBg=slides[curSlide].bg||'#ffffff';BG_COLORS.forEach(function(c){var s=document.createElement('div');s.className='bg-sw'+(c===curBg?' active':'');s.style.background=c;if(c==='#ffffff'||c==='#f5f5f0')s.style.border='2px solid #ccc';s.onclick=function(){slides[curSlide].bg=c;renderBgSwatches();renderCurrentSlide();renderSlideSidebar();};wrap.appendChild(s);});}
-function renderSlideSidebar(){var sb=document.getElementById('sb-sidebar');sb.innerHTML='';slides.forEach(function(sl,i){var d=document.createElement('div');d.className='slide-thumb'+(i===curSlide?' active':'');d.innerHTML='<div class="th-num">Slide '+(i+1)+'</div><div class="th-prev">'+(sl.text||'(empty)')+'</div>'+(slides.length>1?'<button class="del-sl" onclick="deleteSlide('+i+',event)">&#10005;</button>':'');d.onclick=function(e){if(!e.target.classList.contains('del-sl'))selectSlide(i);};sb.appendChild(d);});var ab=document.createElement('button');ab.className='btn sm';ab.style.cssText='width:100%;justify-content:center;';ab.innerHTML='+ New slide';ab.onclick=addSlide;sb.appendChild(ab);}
-function selectSlide(i){curSlide=i;var sl=slides[i];document.getElementById('sc-input').value=sl.text||'';document.getElementById('sc-font').value=sl.font||'';document.getElementById('sc-style').value=sl.style||'normal';document.getElementById('sc-size').value=sl.size||40;document.getElementById('sc-sz-lbl').textContent=sl.size||40;document.getElementById('sc-color').value=sl.color||'#111111';var font=fontList.find(function(x){return x.f===sl.font;});if(sl.font)loadGFont(sl.font,font?font.c:'serif');renderCurrentSlide();renderSlideSidebar();renderBgSwatches();}
-function updateCurrentSlide(){var sl=slides[curSlide];sl.text=document.getElementById('sc-input').value;sl.font=document.getElementById('sc-font').value;sl.style=document.getElementById('sc-style').value;sl.size=parseInt(document.getElementById('sc-size').value)||40;sl.color=document.getElementById('sc-color').value;var font=fontList.find(function(x){return x.f===sl.font;});if(sl.font)loadGFont(sl.font,font?font.c:'serif');renderCurrentSlide();renderSlideSidebar();}
-function renderCurrentSlide(){var sl=slides[curSlide];var canvas=document.getElementById('slide-canvas');var textEl=document.getElementById('sc-text');var labelEl=document.getElementById('sc-label');canvas.style.background=sl.bg||'#ffffff';textEl.textContent=sl.text||'Your text here';var font=fontList.find(function(x){return x.f===sl.font;});textEl.style.fontFamily=sl.font?getFontStack(sl.font,font?font.c:'serif'):'inherit';textEl.style.fontSize=(sl.size||40)+'px';textEl.style.color=sl.color||'#111111';var styleStr=sl.style||'normal';textEl.style.fontWeight=styleStr.includes('bold')?'700':'400';textEl.style.fontStyle=styleStr.includes('italic')?'italic':'normal';labelEl.textContent=(sl.font||'Default')+' - '+(sl.style||'regular')+' - Slide '+(curSlide+1)+'/'+slides.length;}
-function addSlide(){var prev=slides[curSlide];slides.push({text:'',font:prev.font||'',style:prev.style||'normal',size:prev.size||40,color:prev.color||'#111111',bg:prev.bg||'#ffffff'});curSlide=slides.length-1;selectSlide(curSlide);slidesMadeCount++;document.getElementById('stat-slides').textContent=slidesMadeCount;saveData();}
-function deleteSlide(i,e){e.stopPropagation();if(slides.length<=1)return;slides.splice(i,1);if(curSlide>=slides.length)curSlide=slides.length-1;selectSlide(curSlide);}
-function addToSlides(fontName){var isUpload=fontName==='_upload';slides[curSlide].font=isUpload?'UserFont':fontName;if(!isUpload){var font=fontList.find(function(x){return x.f===fontName;});loadGFont(fontName,font?font.c:'serif');}goPage('slides');setTimeout(function(){populateSlideFontSelect();selectSlide(curSlide);},80);toast((isUpload?'Uploaded font':fontName)+' added to slide','ok');}
-function exportSlides(type){var gfFamilies=[];slides.forEach(function(s){if(s.font&&s.font!=='UserFont'&&gfFamilies.indexOf(s.font)<0)gfFamilies.push(s.font);});if(type==='html'){var links=gfFamilies.map(function(f){return'<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family='+encodeURIComponent(f).replace(/%20/g,'+')+'&display=swap">';}).join('');var slidesHtml=slides.map(function(sl,i){var styleStr=sl.style||'normal';var fw=styleStr.includes('bold')?'700':'400';var fs=styleStr.includes('italic')?'italic':'normal';return'<section class="slide" style="background:'+(sl.bg||'#fff')+'"><div class="snum">Slide '+(i+1)+' / '+slides.length+'</div><div class="stext" style="font-family:\''+(sl.font||'inherit')+'\',Georgia,serif;font-size:'+(sl.size||40)+'px;color:'+(sl.color||'#111')+';font-weight:'+fw+';font-style:'+fs+'">'+(sl.text||'')+'</div>'+(sl.font&&sl.font!=='UserFont'?'<div class="smeta">'+sl.font+' - '+(sl.style||'regular')+'</div>':'')+'</section>';}).join('');var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>ABC Fonts Slides</title>'+links+'<style>*{box-sizing:border-box;margin:0;padding:0}body{background:#111}.slide{width:100vw;height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px;text-align:center;position:relative}.slide.current{display:flex}.snum{position:absolute;top:18px;right:22px;font-size:12px;color:rgba(128,128,128,.5)}.stext{line-height:1.2;word-break:break-word;max-width:88%}.smeta{font-size:12px;opacity:.3;margin-top:14px;font-family:sans-serif}.nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:99;align-items:center}.nav button{padding:8px 20px;border-radius:6px;border:none;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;font-size:13px}.pg{color:rgba(255,255,255,.5);font-size:13px;min-width:60px;text-align:center}</style></head><body>'+slidesHtml+'<div class="nav"><button onclick="prev()">&#8592;</button><span class="pg" id="pg"></span><button onclick="next()">&#8594;</button></div><script>var cur=0;var ss=document.querySelectorAll(".slide");function show(i){ss.forEach(function(s,j){s.classList.toggle("current",j===i)});document.getElementById("pg").textContent=(i+1)+" / "+ss.length;}function next(){if(cur<ss.length-1){cur++;show(cur);}}function prev(){if(cur>0){cur--;show(cur);}}show(0);document.addEventListener("keydown",function(e){if(e.key==="ArrowRight"||e.key==="ArrowDown")next();else if(e.key==="ArrowLeft"||e.key==="ArrowUp")prev();});<\/script></body></html>';var blob=new Blob([html],{type:'text/html'});triggerDL(URL.createObjectURL(blob),'abc-fonts-slides.html');toast('Slides exported - open in browser, arrow keys to navigate','ok');slidesMadeCount+=slides.length;document.getElementById('stat-slides').textContent=slidesMadeCount;saveData();}else if(type==='pdf'){try{var jsPDF=window.jspdf.jsPDF;var doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});function hexRgb(h){return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}slides.forEach(function(sl,i){if(i>0)doc.addPage();var bg=hexRgb(sl.bg||'#ffffff');doc.setFillColor(bg[0],bg[1],bg[2]);doc.rect(0,0,297,210,'F');var tc=hexRgb(sl.color||'#111111');doc.setTextColor(tc[0],tc[1],tc[2]);var fs=Math.min(Math.max((sl.size||40)*0.55,12),52);doc.setFontSize(fs);var sty=sl.style||'normal';doc.setFont('helvetica',sty.includes('bold')&&sty.includes('italic')?'bolditalic':sty.includes('bold')?'bold':sty.includes('italic')?'italic':'normal');doc.text(doc.splitTextToSize(sl.text||'',250),148,105,{align:'center',baseline:'middle'});doc.setFontSize(8);doc.setTextColor(160,160,160);doc.setFont('helvetica','normal');doc.text('Slide '+(i+1)+' of '+slides.length+' - ABC Fonts',148,200,{align:'center'});});doc.save('abc-fonts-slides.pdf');toast('PDF exported','ok');slidesMadeCount+=slides.length;document.getElementById('stat-slides').textContent=slidesMadeCount;saveData();}catch(e){toast('PDF export failed: '+e.message,'err');}}}
-function exportFont(family,type){var isUpload=family==='_upload';var dn=isUpload?(uploadedName||'Uploaded Font'):family;var cf=isUpload?'UserFont':family;var idx=cardStyles[family]||0;var sv=isUpload?{weight:'400',style:'normal'}:STYLE_VARIANTS[idx];var text=document.getElementById('prev-text').value.trim()||'The quick brown fox jumps over the lazy dog';doExport(dn,cf,text,type,sv.weight,sv.style);}
-function doProfileExport(type){var family=document.getElementById('exp-font-sel').value;var text=document.getElementById('exp-sample').value.trim()||'The quick brown fox jumps over the lazy dog';var styleStr=document.getElementById('exp-style-sel').value;var fw=styleStr.includes('bold')?'700':'400';var fs=styleStr.includes('italic')?'italic':'normal';if(!family){toast('Choose a font first','err');return;}doExport(family,family,text,type,fw,fs);exportCount++;document.getElementById('stat-exports').textContent=exportCount;saveData();}
-function doExport(dn,cf,text,type,fw,fst){fw=fw||'400';fst=fst||'normal';var safe=dn.replace(/ /g,'+');var gfl='https://fonts.googleapis.com/css2?family='+safe+':ital,wght@0,400;0,700;1,400;1,700&display=swap';var styleLabel=((fw==='700'?'Bold ':'')+fst).trim();if(type==='doc'){var html='<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+dn+'</title><link rel="stylesheet" href="'+gfl+'"><style>body{font-family:\''+cf+'\',Georgia,serif;padding:60px 80px;max-width:720px;margin:0 auto}h1{font-family:Arial,sans-serif;font-size:12pt;color:#aaa;border-bottom:1px solid #eee;padding-bottom:8px;margin-bottom:22px}.s{margin:12px 0}.meta{font-size:9pt;color:#bbb;margin-top:36px;font-family:Arial,sans-serif}</style></head><body><h1>'+dn+' ('+styleLabel+') - ABC Fonts</h1><div class="s" style="font-size:34pt;font-weight:'+fw+';font-style:'+fst+'">'+text+'</div><div class="s" style="font-size:22pt;font-weight:'+fw+';font-style:'+fst+'">'+text+'</div><div class="s" style="font-size:14pt;font-weight:'+fw+';font-style:'+fst+'">'+text+'</div><div class="s" style="font-size:10pt;font-weight:'+fw+';font-style:'+fst+'">'+text+'</div><div class="s" style="font-size:13pt">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz</div><div class="meta">ABC Fonts - '+new Date().toLocaleDateString()+'</div></body></html>';var blob=new Blob([html],{type:'application/msword'});triggerDL(URL.createObjectURL(blob),dn.replace(/ /g,'-')+'-sample.doc');toast('Word doc exported','ok');}else if(type==='pdf'){try{var jsPDF=window.jspdf.jsPDF;var doc=new jsPDF();doc.setFontSize(10);doc.setTextColor(160);doc.text(dn+' ('+styleLabel+') - ABC Fonts',20,16);doc.setDrawColor(220);doc.line(20,20,195,20);doc.setTextColor(20);var jStyle=fw==='700'&&fst==='italic'?'bolditalic':fw==='700'?'bold':fst==='italic'?'italic':'normal';[[34,38],[22,66],[14,92],[10,112]].forEach(function(pair){doc.setFontSize(pair[0]);doc.setFont('helvetica',jStyle);doc.text(doc.splitTextToSize(text,170),20,pair[1]);});doc.setFontSize(11);doc.setTextColor(80);doc.setFont('helvetica','normal');doc.text('Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz',20,130);doc.setFontSize(8);doc.setTextColor(170);doc.text('ABC Fonts - '+new Date().toLocaleDateString(),20,275);doc.save(dn.replace(/ /g,'-')+'-sample.pdf');toast('PDF exported','ok');}catch(e){toast('PDF export failed','err');}}else if(type==='slide'){var shtml='<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+dn+'</title><link rel="stylesheet" href="'+gfl+'"><style>*{margin:0;padding:0;box-sizing:border-box}html,body{width:100%;height:100%;background:#111}.stage{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}.slide{width:960px;max-width:95vw;background:#fff;border-radius:10px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px;text-align:center}h2{font-family:Arial,sans-serif;font-size:12px;color:#aaa;text-transform:uppercase;letter-spacing:2px;margin-bottom:18px}.main{font-family:\''+cf+'\',Georgia,serif;font-size:clamp(22px,4.5vw,50px);font-weight:'+fw+';font-style:'+fst+';line-height:1.2;margin-bottom:16px}.alpha{font-family:\''+cf+'\',Georgia,serif;font-size:15px;color:#888;line-height:2}footer{font-family:Arial,sans-serif;font-size:10px;color:#ccc;margin-top:auto;padding-top:14px;border-top:1px solid #f0f0f0}</style></head><body><div class="stage"><div class="slide"><h2>'+dn+' - '+styleLabel+'</h2><div class="main">'+text+'</div><div class="alpha">Aa Bb Cc   0 1 2 3</div><footer>ABC Fonts - '+new Date().toLocaleDateString()+'</footer></div></div></body></html>';var sblob=new Blob([shtml],{type:'text/html'});triggerDL(URL.createObjectURL(sblob),dn.replace(/ /g,'-')+'-slide.html');toast('Slide exported','ok');}exportCount++;document.getElementById('stat-exports').textContent=exportCount;saveData();}
-function populateExportSelect(){var sel=document.getElementById('exp-font-sel');if(!sel)return;sel.innerHTML='<option value="">Choose a font...</option>';fontList.forEach(function(f){var o=document.createElement('option');o.value=f.f;o.textContent=f.f;sel.appendChild(o);});}
-function googleSignIn(){var email=prompt('Simulate Google Sign-In\n\nEnter your Google email (stored locally only):','you@gmail.com');if(!email||!email.includes('@'))return;var username=email.split('@')[0];if(!accounts[username])accounts[username]={password:'__google__',email:email,savedFonts:[],exportCount:0,slidesMade:0,joined:new Date().toISOString(),googleConnected:true,googleEmail:email};else{accounts[username].googleConnected=true;accounts[username].googleEmail=email;}saveData();autoLogin(username);toast('Signed in with Google as '+email,'ok');}
-function toggleGoogleConnect(){if(googleConnected){googleConnected=false;googleEmail='';updateGoogleCard();toast('Google disconnected');saveData();}else{var email=prompt('Enter your Google email to link:',(currentUser&&accounts[currentUser]&&accounts[currentUser].email)||'');if(!email||!email.includes('@'))return;googleConnected=true;googleEmail=email;if(currentUser){accounts[currentUser].googleConnected=true;accounts[currentUser].googleEmail=email;}updateGoogleCard();toast('Google account linked!','ok');saveData();}}
-function updateGoogleCard(){var btn=document.getElementById('g-btn');var sub=document.getElementById('g-sub');var badge=document.getElementById('prof-g-badge');var da=document.getElementById('drive-actions');if(googleConnected){btn.textContent='Disconnect';btn.className='btn sm danger';sub.textContent=googleEmail;sub.style.color='var(--success)';badge.style.display='block';da.style.display='block';}else{btn.textContent='Connect';btn.className='btn sm';sub.textContent='Not connected';sub.style.color='var(--text3)';badge.style.display='none';da.style.display='none';}}
-function toggleAuthMode(){authMode=authMode==='login'?'register':'login';var isReg=authMode==='register';document.getElementById('auth-title').textContent=isReg?'Create account':'Sign in';document.getElementById('auth-btn').textContent=isReg?'Create account':'Sign in';document.getElementById('auth-email-grp').style.display=isReg?'block':'none';document.getElementById('auth-tog').innerHTML=isReg?"Already have an account? <a onclick='toggleAuthMode()'>Sign in</a>":"Don't have an account? <a onclick='toggleAuthMode()'>Create one</a>";document.getElementById('auth-msg').className='msg';document.getElementById('auth-msg').textContent='';}
-function submitAuth(){var u=document.getElementById('auth-user').value.trim();var p=document.getElementById('auth-pass').value;var msg=document.getElementById('auth-msg');if(!u||!p){setMsg(msg,'Please fill in all fields.',true);return;}if(authMode==='register'){if(accounts[u]){setMsg(msg,'Username already taken.',true);return;}var em=document.getElementById('auth-email').value.trim();accounts[u]={password:p,email:em,savedFonts:[],exportCount:0,slidesMade:0,joined:new Date().toISOString(),googleConnected:false,googleEmail:''};saveData();setMsg(msg,'Account created!',false);setTimeout(function(){autoLogin(u);},500);}else{if(!accounts[u]||accounts[u].password!==p){setMsg(msg,'Invalid username or password.',true);return;}autoLogin(u);}}
-function autoLogin(u){currentUser=u;var acc=accounts[u];savedFonts=acc.savedFonts||[];exportCount=acc.exportCount||0;slidesMadeCount=acc.slidesMade||0;googleConnected=acc.googleConnected||false;googleEmail=acc.googleEmail||'';var init=u.slice(0,2).toUpperCase();document.getElementById('nav-av').textContent=init;document.getElementById('nav-uname').textContent=u;document.getElementById('nav-user').style.display='flex';document.getElementById('prof-av').textContent=init;document.getElementById('prof-name').textContent=u;document.getElementById('prof-email').textContent=acc.email||'No email set';document.getElementById('stat-saved').textContent=savedFonts.length;document.getElementById('stat-exports').textContent=exportCount;document.getElementById('stat-slides').textContent=slidesMadeCount;document.getElementById('nav-sc').textContent=savedFonts.length?'('+savedFonts.length+')':'';document.getElementById('auth-section').style.display='none';document.getElementById('profile-section').style.display='block';updateGoogleCard();populateExportSelect();localStorage.setItem('abc_session',u);toast('Welcome, '+u+'!','ok');}
-function signOut(){currentUser=null;savedFonts=[];exportCount=0;slidesMadeCount=0;googleConnected=false;googleEmail='';document.getElementById('nav-user').style.display='none';document.getElementById('nav-sc').textContent='';document.getElementById('auth-section').style.display='block';document.getElementById('profile-section').style.display='none';document.getElementById('auth-user').value='';document.getElementById('auth-pass').value='';document.getElementById('auth-msg').textContent='';localStorage.removeItem('abc_session');toast('Signed out');}
-function adminLogin(){var p=document.getElementById('admin-pw').value;var msg=document.getElementById('admin-msg');if(p!==adminPass){setMsg(msg,'Incorrect password.',true);return;}adminAuthed=true;showAdminPanel();}
-function showAdminPanel(){document.getElementById('admin-auth-wrap').style.display='none';document.getElementById('admin-panel').style.display='block';renderAdminTable();}
-function adminLogout(){adminAuthed=false;document.getElementById('admin-auth-wrap').style.display='block';document.getElementById('admin-panel').style.display='none';document.getElementById('admin-pw').value='';location.hash='';goPage('browse');}
-function adminAddFont(){var name=document.getElementById('adm-fname').value.trim();var cat=document.getElementById('adm-fcat').value;var civ=document.getElementById('adm-fciv').value.trim();var civDesc=document.getElementById('adm-fcivdesc').value.trim();var tags=document.getElementById('adm-ftags').value.split(',').map(function(t){return t.trim();}).filter(Boolean);var msg=document.getElementById('adm-font-msg');if(!name){setMsg(msg,'Font name is required.',true);return;}if(fontList.find(function(f){return f.f.toLowerCase()===name.toLowerCase();})){setMsg(msg,'Font already exists.',true);return;}var entry={f:name,c:cat,tags:tags};if(civ)entry.civ=civ;if(civDesc)entry.civDesc=civDesc;fontList.push(entry);saveData();filterFonts();renderAdminTable();populateExportSelect();populateSlideFontSelect();['adm-fname','adm-ftags','adm-fciv','adm-fcivdesc'].forEach(function(id){document.getElementById(id).value='';});setMsg(msg,'"'+name+'" added!',false);toast('"'+name+'" added','ok');}
-function adminDeleteFont(i){if(!confirm('Delete "'+fontList[i].f+'"?'))return;fontList.splice(i,1);saveData();filterFonts();renderAdminTable();populateExportSelect();toast('Deleted');}
-function renderAdminTable(){var tb=document.getElementById('adm-tbody');document.getElementById('adm-count').textContent=fontList.length;tb.innerHTML='';fontList.forEach(function(font,i){var tr=document.createElement('tr');tr.innerHTML='<td style="font-weight:500">'+font.f+'</td><td style="color:#8888aa">'+font.c+'</td><td style="font-size:12px;color:#4a4a66">'+(font.civ||'-')+'</td><td><button class="btn sm danger" onclick="adminDeleteFont('+i+')">Delete</button></td>';tb.appendChild(tr);});}
-function adminExportJSON(){var blob=new Blob([JSON.stringify(fontList,null,2)],{type:'application/json'});triggerDL(URL.createObjectURL(blob),'abc-fonts-list.json');toast('Exported','ok');}
-function handleAdminImport(e){var file=e.target.files[0];if(!file)return;var r=new FileReader();r.onload=function(ev){try{var data=JSON.parse(ev.target.result);if(!Array.isArray(data))throw new Error();if(!confirm('Replace '+fontList.length+' fonts with '+data.length+'?'))return;fontList=data;saveData();filterFonts();renderAdminTable();populateExportSelect();toast(data.length+' fonts imported','ok');}catch(e){toast('Invalid JSON','err');}}; r.readAsText(file);}
-function adminSaveSettings(){var np=document.getElementById('adm-newpw').value;if(np){adminPass=np;document.getElementById('adm-newpw').value='';}saveData();toast('Saved','ok');}
+  // Function to add a new slide
+  function addSlide() {
+    const text = input.value.trim();
+    if (text === "") return;
 
-// ── GITHUB LOADER ─────────────────────────────────────────────────────────────
-var ghBaseUrl = '';
+    const slide = document.createElement('div');
+    slide.className = 'slide';
+    slide.textContent = text;
 
-function saveGhUrl(){
-  ghBaseUrl = document.getElementById('gh-url').value.trim().replace(/\/$/, '');
-  try{ localStorage.setItem('abc_gh_url', ghBaseUrl); }catch(e){}
-}
-
-function loadFromGitHub(force){
-  var url = document.getElementById('gh-url').value.trim().replace(/\/$/, '');
-  if(!url){ ghStatus('Please enter your GitHub Pages URL', 'warn'); return; }
-  ghBaseUrl = url;
-  try{ localStorage.setItem('abc_gh_url', url); }catch(e){}
-  var jsonUrl = url + '/fonts.json' + (force ? '?t=' + Date.now() : '');
-  ghStatus('Loading fonts.json from GitHub...', 'loading');
-  document.getElementById('gh-preview-list').innerHTML = '';
-  fetch(jsonUrl)
-    .then(function(r){
-      if(!r.ok) throw new Error('HTTP ' + r.status + ' - check your GitHub Pages URL');
-      return r.json();
-    })
-    .then(function(data){
-      if(!Array.isArray(data)) throw new Error('fonts.json must be a JSON array');
-      var added = 0, skipped = 0;
-      data.forEach(function(entry){
-        if(!entry.f || !entry.c || !entry.file){ skipped++; return; }
-        // Check if already exists
-        if(fontList.find(function(x){ return x.f === entry.f; })){ skipped++; return; }
-        // Build font entry
-        var newFont = {f: entry.f, c: entry.c, tags: entry.tags || []};
-        if(entry.civ) newFont.civ = entry.civ;
-        if(entry.civDesc) newFont.civDesc = entry.civDesc;
-        // Store the GitHub raw file URL so we can load it
-        newFont.ghFile = url + '/' + entry.file;
-        newFont.ghBase = url;
-        fontList.push(newFont);
-        // Register the font face immediately
-        injectGhFontFace(entry.f, url + '/' + entry.file);
-        added++;
-      });
-      saveData();
-      filterFonts();
-      renderAdminTable();
-      populateExportSelect();
-      populateSlideFontSelect();
-      ghStatus('Done! Added ' + added + ' fonts' + (skipped > 0 ? ', skipped ' + skipped + ' duplicates.' : '.'), 'ok');
-      showGhPreview(data, url);
-    })
-    .catch(function(e){
-      ghStatus('Error: ' + e.message + '. Make sure GitHub Pages is enabled on your repo.', 'fail');
-    });
-}
-
-function reloadFromGitHub(){
-  loadFromGitHub(true);
-}
-
-function injectGhFontFace(fontName, fileUrl){
-  var s = document.createElement('style');
-  s.textContent = '@font-face { font-family: "' + fontName + '"; src: url("' + fileUrl + '"); }';
-  document.head.appendChild(s);
-  if(!loadedFamilies[fontName]){
-    loadedFamilies[fontName] = true;
-    loadStatus[fontName] = 'ok';
+    container.appendChild(slide);
   }
-}
 
-function showGhPreview(data, baseUrl){
-  var wrap = document.getElementById('gh-preview-list');
-  wrap.innerHTML = '<div style="font-size:11px;color:#8888aa;margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Fonts loaded from GitHub:</div>';
-  var byCat = {};
-  data.forEach(function(f){
-    if(!byCat[f.c]) byCat[f.c] = [];
-    byCat[f.c].push(f);
+  // Listen for Enter key press on the input
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addSlide();
+      // Optional: clear input after adding slide
+      // input.value = '';
+    }
   });
-  Object.keys(byCat).forEach(function(cat){
-    var catDiv = document.createElement('div');
-    catDiv.style.cssText = 'margin-bottom:8px';
-    catDiv.innerHTML = '<div style="font-size:11px;color:#9d7fff;font-weight:600;margin-bottom:4px">' + (cat==='ancient'?'Ancient Civilisations':cat) + ' (' + byCat[cat].length + ')</div>';
-    byCat[cat].forEach(function(f){
-      var pill = document.createElement('span');
-      pill.style.cssText = 'display:inline-block;background:#1c1c2a;border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 8px;font-size:11px;margin:2px;color:#eeeef5;font-family:"' + f.f + '",Georgia,serif';
-      pill.textContent = f.f;
-      catDiv.appendChild(pill);
-    });
-    wrap.appendChild(catDiv);
-  });
-}
-
-function ghStatus(msg, type){
-  var el = document.getElementById('gh-status');
-  if(!el) return;
-  el.textContent = msg;
-  el.style.color = type==='ok' ? '#34d399' : type==='fail' ? '#f87171' : type==='loading' ? '#fbbf24' : '#8888aa';
-}
-
-function setMsg(el,text,isErr){el.textContent=text;el.className='msg '+(isErr?'err':'ok');}
-var toastTimer;
-function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show'+(type?' '+type:'');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.className='';},3000);}
-function triggerDL(url,name){var a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(function(){URL.revokeObjectURL(url);},2000);}
-loadData();
-filteredFonts=fontList.slice();
-// Restore saved GitHub URL
-try{
-  var savedGhUrl = localStorage.getItem('abc_gh_url');
-  if(savedGhUrl){
-    ghBaseUrl = savedGhUrl;
-    var ghInput = document.getElementById('gh-url');
-    if(ghInput) ghInput.value = savedGhUrl;
-  }
-}catch(e){}
-if(!navigator.onLine)document.getElementById('net-alert').style.display='flex';
-window.addEventListener('offline',function(){document.getElementById('net-alert').style.display='flex';});
-window.addEventListener('online',function(){document.getElementById('net-alert').style.display='none';filterFonts();});
-filterFonts();
-populateSlideFontSelect();
-checkHash();
-window.addEventListener('hashchange',checkHash);
 </script>
+
 </body>
 </html>
